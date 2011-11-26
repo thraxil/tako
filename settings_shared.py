@@ -63,6 +63,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'treebeard',
     'south',
+    'tako.main',
+    'lettuce.django',
 )
 
 THUMBNAIL_SUBDIR = "thumbs"
@@ -81,3 +83,7 @@ WIND_STAFF_MAPPER_GROUPS = ['tlc.cunix.local:columbia.edu']
 WIND_SUPERUSER_MAPPER_GROUPS = ['anp8']
 
 SOUTH_AUTO_FREEZE_APP = True
+
+LETTUCE_APPS = (
+    'tako.main',
+    )
