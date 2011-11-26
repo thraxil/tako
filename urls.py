@@ -15,14 +15,10 @@ if hasattr(settings,'WIND_BASE'):
     logout_page = (r'^accounts/logout/$','djangowind.views.logout', {'next_page': redirect_after_logout})
 
 urlpatterns = patterns('',
-                       # Example:
-                       # (r'^tako/', include('tako.foo.urls')),
 		       auth_urls,
 		       logout_page,
 
                        (r'^admin/', include(admin.site.urls)),
-                       (r'^munin/',include('munin.urls')),
                        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': site_media_root}),
-                       (r'^uploads/(?P<path>.*)$','django.views.static.serve',{'document_root' : settings.MEDIA_ROOT}),
 )
 
