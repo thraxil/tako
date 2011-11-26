@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from annoying.decorators import render_to
 
+@login_required
 @render_to("main/index.html")
 def index(request):
     return dict()
