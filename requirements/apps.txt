@@ -1,0 +1,4 @@
+-r libs.txt
+requirements/src/djangowind-0.10.0.tar.gz
+
+
