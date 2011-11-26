@@ -1,4 +1,5 @@
 -r libs.txt
 requirements/src/djangowind-0.10.0.tar.gz
 requirements/src/django-treebeard-1.61.tar.gz
+requirements/src/South-0.7.3.tar.gz
 

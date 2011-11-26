@@ -62,6 +62,7 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'django.contrib.admin',
     'treebeard',
+    'south',
 )
 
 THUMBNAIL_SUBDIR = "thumbs"
@@ -79,4 +80,4 @@ WIND_AFFIL_HANDLERS = ['djangowind.auth.AffilGroupMapper','djangowind.auth.Staff
 WIND_STAFF_MAPPER_GROUPS = ['tlc.cunix.local:columbia.edu']
 WIND_SUPERUSER_MAPPER_GROUPS = ['anp8']
 
-
+SOUTH_AUTO_FREEZE_APP = True
