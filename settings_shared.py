@@ -61,6 +61,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django.contrib.markup',
     'django.contrib.admin',
+    'treebeard',
 )
 
 THUMBNAIL_SUBDIR = "thumbs"
