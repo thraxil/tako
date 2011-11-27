@@ -28,6 +28,7 @@ class Node(MP_Node):
         return dict(label=self.label,
                     id=self.id,
                     details=self.details,
+                    children_count=self.get_children_count(),
                     )
 
 def user_top_level(user):

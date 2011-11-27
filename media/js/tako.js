@@ -2,13 +2,14 @@ $(function(){
   window.Node = Backbone.Model.extend({
     defaults: function() {
       return {
+	'children_count' : 0
       };
     },
 
    initialize: function() {
-     this.nodes = new NodeList;
-     this.nodes.url = "/api/" + this.id + "/";
-     this.nodes.bind("reset", this.updateCounts);
+     this.children = new NodeList;
+     this.children.url = "/api/" + this.id + "/";
+     this.children.bind("reset", this.updateCounts);
    }
   });
 
@@ -38,6 +39,7 @@ $(function(){
       console.log(this.model);
       $(this.el).html(this.template(this.model.toJSON()));
       this.setLabel();
+//      this.setChildrenCount();
       return this;
     },
 
@@ -49,6 +51,10 @@ $(function(){
       this.$('.node-label').text(label);
       this.input = this.$('.node-input');
       this.input.bind('blur', _.bind(this.close, this)).val(label);
+    },
+
+    setChildrenCount: function () {
+      this.$('.node-children-count').text(this.model.get('children_count'));
     },
 
     edit: function() {

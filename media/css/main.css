@@ -347,6 +347,11 @@ ol, ul {
     height: 20px;
     background: url(/site_media/img/destroy.png) no-repeat 0 0;
   }
+
+  #node-list .children-expander {
+   position: absolute;
+   left: -15px;
+  }
     #node-list li:hover .node-destroy {
       display: block;
     }
