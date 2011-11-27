@@ -21,5 +21,8 @@ class Node(MP_Node):
         self.slug = slug
         super(Node, self).save(*args,**kwargs)
 
+    def get_absolute_url(self):
+        return "/%d/" % self.id
+
 def user_top_level(user):
     return Node.get_root_nodes().filter(user=user)

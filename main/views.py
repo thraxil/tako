@@ -9,6 +9,7 @@ from annoying.decorators import render_to
 def node(request,node_id):
     if node_id:
         n = get_object_or_404(Node,id=node_id)
+        print str(n.get_children())
         return dict(node=n,nodes=n.get_children())
     else:
         return dict(nodes=user_top_level(request.user))
@@ -16,7 +17,8 @@ def node(request,node_id):
 @login_required
 def add(request,node_id):
     if node_id:
-        p = get_object_or_404(Node,id=parent_id)
+        p = get_object_or_404(Node,id=node_id)
+        p.add_child(user=request.user,label=request.POST.get('label',''))
         return HttpResponseRedirect(p.get_absolute_url())
     else:
         n = Node.add_root(user=request.user,label=request.POST.get('label',''))

@@ -1,9 +1,16 @@
 {% extends "base.html" %}
+{% load markup %}
 
 {% block content %}
+{% if node %}
+<h1>{{node.label}}</h1>
+{% if node.details %}
+{{node.details|markdown}}
+{% endif %}
+{% endif %}
 <ul>
 {% for node in nodes %}
-<li>{{node.label}}</li>
+<li>{% if node.get_children_count %} + {% else %} - {% endif %} <a href="{{node.get_absolute_url}}">{{node.label}}</a></li>
 {% endfor %}
 <form action="add/" method="post">
 <li>add: <input type="text" name="label" /></li>
