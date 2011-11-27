@@ -11,22 +11,8 @@
 	{% block feeds %}{% endblock %}
 </head>
 <body>
-  <div id="container">
-    {% block primarynav %}
-    <div id="primarynav">
-      {% block primarynavtabs %}
-      <ul>
-	<li><a href="/">/</a></li>
-      </ul>
-      {% endblock %}
-      {% block usernav %}{% endblock %}
-    </div>
-    {% endblock %}
-    <div id="pagebody">
       {% block pagetitle %}{% endblock %}
       {% block content %}{% endblock %}
       <div class="visualclear"></div>
-    </div>
-  </div>
 </body>
 </html>

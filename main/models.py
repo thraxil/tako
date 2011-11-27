@@ -24,5 +24,11 @@ class Node(MP_Node):
     def get_absolute_url(self):
         return "/%d/" % self.id
 
+    def as_dict(self):
+        return dict(label=self.label,
+                    id=self.id,
+                    details=self.details,
+                    )
+
 def user_top_level(user):
     return Node.get_root_nodes().filter(user=user)
