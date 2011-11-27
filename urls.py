@@ -17,7 +17,8 @@ if hasattr(settings,'WIND_BASE'):
 urlpatterns = patterns('',
 		       auth_urls,
 		       logout_page,
-                       (r'^$','tako.main.views.index'),
+                       (r'^(?P<node_id>\d*)/?$','tako.main.views.node'),
+                       (r'^(?P<node_id>\d*)/?add/$','tako.main.views.add'),
                        (r'^admin/', include(admin.site.urls)),
                        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': site_media_root}),
 )

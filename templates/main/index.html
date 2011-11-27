@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-Hello World
+<ul>
+{% for node in nodes %}
+<li>{{node.label}}</li>
+{% endfor %}
+<form action="add/" method="post">
+<li>add: <input type="text" name="label" /></li>
+</form>
+</ul>
 {% endblock %}

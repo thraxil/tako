@@ -20,3 +20,6 @@ class Node(MP_Node):
 #            addto += 1
         self.slug = slug
         super(Node, self).save(*args,**kwargs)
+
+def user_top_level(user):
+    return Node.get_root_nodes().filter(user=user)
