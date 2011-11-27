@@ -47,11 +47,13 @@ def api(request,node_id):
         if node_id:
             n = get_object_or_404(Node,id=node_id)
             n.delete()
+            return HttpResponse(dumps({}),mimetype="application/json")
 
     if node_id:
         n = get_object_or_404(Node,id=node_id)
-        return HttpResponse(dumps([n.as_dict() for n in n.get_children()]),
-                            mimetype="application/json")
+        s = dumps([n.as_dict() for n in n.get_children()])
+        print str(s)
+        return HttpResponse(s,mimetype="application/json")
     else:
         nodes = user_top_level(request.user)
         return HttpResponse(dumps([n.as_dict() for n in nodes]), 

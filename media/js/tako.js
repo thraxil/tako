@@ -2,14 +2,27 @@ $(function(){
   window.Node = Backbone.Model.extend({
     defaults: function() {
       return {
-	'children_count' : 0
+	'children_count' : 0,
+	'parent_id' : 0
       };
     },
 
    initialize: function() {
-     this.children = new NodeList;
+     ChildNodeList = Backbone.Collection.extend({
+        model: Node,
+	url: "/api/" + this.id + "/"
+     });
+     this.children = new ChildNodeList;
      this.children.url = "/api/" + this.id + "/";
-     this.children.bind("reset", this.updateCounts);
+   },
+
+//					destroy: function() {
+					  //console.log("destroy");
+//					},
+
+   loadChildren: function() {
+     this.children.fetch();
+     console.log("children fetched");
    }
   });
 
@@ -26,20 +39,25 @@ $(function(){
     events: {
       "dblclick div.node-label"    : "edit",
       "click span.node-destroy"   : "clear",
+      "click span.node-children-expander"   : "showChildren",
       "keypress .node-input"      : "updateOnEnter"
     },
 
     initialize: function() {
       this.model.bind('change', this.render, this);
       this.model.bind('destroy', this.remove, this);
+      this.model.children.bind('reset',this.addAll,this);
+//      this.model.bind('all',this.eventLogger,this);
+//      this.model.children.bind('all',this.eventLogger,this);
     },
 
+eventLogger: function(e) {
+  console.log(e);
+},
+
     render: function() {
-      console.log("render node");
-      console.log(this.model);
       $(this.el).html(this.template(this.model.toJSON()));
       this.setLabel();
-//      this.setChildrenCount();
       return this;
     },
 
@@ -51,10 +69,6 @@ $(function(){
       this.$('.node-label').text(label);
       this.input = this.$('.node-input');
       this.input.bind('blur', _.bind(this.close, this)).val(label);
-    },
-
-    setChildrenCount: function () {
-      this.$('.node-children-count').text(this.model.get('children_count'));
     },
 
     edit: function() {
@@ -77,6 +91,22 @@ $(function(){
 
     clear: function() {
       this.model.destroy();
+    },
+
+    addOne: function(node) {
+      console.log(node.get('label'));
+      var view = new NodeView({model: node});
+      this.$(".children ul").append(view.render().el);
+      console.log("node addOne done");
+    },
+
+    addAll: function() {
+      Nodes.each(this.addOne);
+    },
+
+    showChildren: function() {
+      this.model.loadChildren();
+      $(this.el).addClass("showing-children");
     }
 
   });
@@ -86,12 +116,10 @@ $(function(){
 
     events: {
       "keypress #new-node":  "createOnEnter",
-      "keyup #new-node":     "showTooltip",
-      "click .node-clear a": "clearCompleted"
+      "keyup #new-node":     "showTooltip"
     },
 
     initialize: function() {
-      console.log("initialize()");
       this.input    = this.$("#new-node");
 
       Nodes.bind('add',   this.addOne, this);
@@ -101,13 +129,13 @@ $(function(){
     },
 
     render: function() {
-      console.log("render");
+
     },
 
     addOne: function(node) {
-      console.log("addOne");
       var view = new NodeView({model: node});
       this.$("#node-list").append(view.render().el);
+      console.log("addOne done");
     },
 
     addAll: function() {
@@ -115,16 +143,10 @@ $(function(){
     },
 
     createOnEnter: function(e) {
-      console.log("create on enter");
       var label = this.input.val();
-      console.log(label);
       if (!label || e.keyCode != 13) return;
       Nodes.create({label: label});
       this.input.val('');
-    },
-
-    clearCompleted: function() {
-      return false;
     },
 
     showTooltip: function(e) {

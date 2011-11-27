@@ -25,10 +25,15 @@ class Node(MP_Node):
         return "/%d/" % self.id
 
     def as_dict(self):
+        parent = self.get_parent()
+        parent_id = 0
+        if parent:
+            parent_id = parent.id
         return dict(label=self.label,
                     id=self.id,
                     details=self.details,
                     children_count=self.get_children_count(),
+                    parent_id=parent_id,
                     )
 
 def user_top_level(user):

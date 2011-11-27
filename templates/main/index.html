@@ -31,13 +31,17 @@
     <script type="text/template" id="item-template">
       <div class="node ">
         <div class="display">
-          <span class="children-expander"><%= children_count ? '+' : '-' %></span>
+          <span class="node-children-expander"><%= children_count ? '+' : '-' %></span>
           <div class="node-label"></div>
           <span class="node-destroy"></span>
         </div>
         <div class="edit">
           <input class="node-input" type="text" value="" />
         </div>
+	<div class="children">
+	  <ul>
+	  </ul>
+	</div>
       </div>
     </script>
 

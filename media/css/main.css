@@ -327,6 +327,12 @@ ol, ul {
       -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
       box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
     }
+  #node-list .children {
+    display: none;
+  }
+  #node-list .showing-children .children {
+    display:block;
+  }
   #node-list .check {
     position: relative;
     top: 9px;
@@ -348,7 +354,7 @@ ol, ul {
     background: url(/site_media/img/destroy.png) no-repeat 0 0;
   }
 
-  #node-list .children-expander {
+  #node-list .node-children-expander {
    position: absolute;
    left: -15px;
   }
