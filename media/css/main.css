@@ -7,6 +7,7 @@ body
 	background-color: #fff;
 	font: normal 0.88em/140% arial, helvetica, verdana, sans-serif;
 	color: #000;
+    background: url(/site_media/img/octo.jpg) no-repeat 0 0;	
 }
 
 /* ########## Standard elements ########## */
@@ -237,7 +238,7 @@ ol, ul {
 }
 
 #takoapp {
-  width: 480px;
+  width: 960px;
   margin: 0 auto 40px;
   background: white;
   padding: 20px;
@@ -258,7 +259,7 @@ ol, ul {
   position: relative;
 }
   #create-node input {
-    width: 466px;
+    width: 900px;
     font-size: 16px;
     font-family: inherit;
     line-height: 1.4em;
@@ -312,7 +313,7 @@ ol, ul {
       display: block;
     }
     #node-list .editing input {
-      width: 444px;
+      width: 800px;
       font-size: 24px;
       font-family: inherit;
       margin: 0;

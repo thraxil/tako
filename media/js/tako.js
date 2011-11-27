@@ -9,17 +9,7 @@ $(function(){
      this.nodes = new NodeList;
      this.nodes.url = "/api/" + this.id + "/";
      this.nodes.bind("reset", this.updateCounts);
-   },
-
-   parse: function (){
-     console.log("parsing item");
-   },
-
-    toggle: function() {
-    }
-
-
-
+   }
   });
 
 
