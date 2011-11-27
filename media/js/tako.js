@@ -16,10 +16,6 @@ $(function(){
      this.children.url = "/api/" + this.id + "/";
    },
 
-//					destroy: function() {
-					  //console.log("destroy");
-//					},
-
    loadChildren: function() {
      this.children.fetch();
      console.log("children fetched");
