@@ -14,43 +14,22 @@
 	{% block feeds %}{% endblock %}
 </head>
 <body>
-<div id="container">
-
-
-{% block masthead %}
-{% endblock %}
-
-	<div class="visualclear"></div>
-	
-{% block primarynav %}
-	<div id="primarynav">
-		<div class="encase" id="{% block navalignment %}leftside{% endblock %}">
-			{% block primarynavtabs %}
-			<ul>
-				<li><a href="/">/</a></li>
-			</ul>
-			{% endblock %}
-			
-			{% block usernav %}{% endblock %}
-
-		</div>
-	</div>
-{% endblock %}
-
-	<div id="pagebody">
-		<div id="content">
-			<div id="squish">
-				<div class="block">
-					{% block pagetitle %}{% endblock %}
-				
-					{% block content %}{% endblock %}
-
-				<div class="visualclear"></div>
-				</div>
-			</div>
-		</div>
-		<div class="visualclear"></div>
-	</div>
-</div>
+  <div id="container">
+    {% block primarynav %}
+    <div id="primarynav">
+      {% block primarynavtabs %}
+      <ul>
+	<li><a href="/">/</a></li>
+      </ul>
+      {% endblock %}
+      {% block usernav %}{% endblock %}
+    </div>
+    {% endblock %}
+    <div id="pagebody">
+      {% block pagetitle %}{% endblock %}
+      {% block content %}{% endblock %}
+      <div class="visualclear"></div>
+    </div>
+  </div>
 </body>
 </html>
