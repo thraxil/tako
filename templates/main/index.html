@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% load markup %}
 
+{% block js %}
+    <script src="/site_media/js/json2.js"></script>
+    <script src="/site_media/js/jquery-1.5.js"></script>
+    <script src="/site_media/js/underscore-1.1.6.js"></script>
+    <script src="/site_media/js/backbone.js"></script>
+{% endblock %}
+
 {% block content %}
 {% if node %}
 <h1>{{node.label}}</h1>
