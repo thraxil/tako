@@ -68,19 +68,23 @@ $(function(){
       this.input.bind('blur', _.bind(this.close, this)).val(label);
     },
 
-    edit: function() {
+    edit: function(e) {
       $(this.el).addClass("editing");
       this.input.focus();
+      e.stopPropagation();
     },
 
     close: function() {
       this.model.save({label: this.input.val()});
       $(this.el).removeClass("editing");
-      $(this.el).removeClass("adding-child");
     },
 
     updateOnEnter: function(e) {
       if (e.keyCode == 13) this.close();
+    },
+
+    closeAddChild: function() {
+      $(this.el).removeClass("adding-child");
     },
 
     addChildOnEnter: function(e) {
@@ -89,7 +93,7 @@ $(function(){
 	console.log(e.target.value);
 	this.model.children.create({label: e.target.value,
 				    parent_id: this.model.get('id')});
-	this.close();
+	this.closeAddChild();
 	}
     },
 
@@ -97,14 +101,17 @@ $(function(){
       $(this.el).remove();
     },
 
-    clear: function() {
+    clear: function(e) {
       this.model.destroy();
+      e.stopPropagation();
     },
 
-    createChildForm: function() {
+    createChildForm: function(e) {
       console.log("createChildForm");
       console.log(this);
+      console.log(e);
       $(this.el).addClass("adding-child");
+      e.stopPropagation();
     },
 
     addOne: function(node) {
@@ -116,13 +123,14 @@ $(function(){
       this.model.children.each(this.addOne);
     },
 
-    toggleChildren: function() {
+    toggleChildren: function(e) {
       if (this.model.showing_children) {
 	$(this.el).children(".children-node-list").empty();
 	this.model.children.unbind();
       }
       $(this.el).toggleClass("showing-children");
       this.model.toggleChildren();
+      e.stopPropagation();
     }
   });
 
