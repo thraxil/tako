@@ -291,7 +291,6 @@ ol, ul {
     position: relative;
     font-size: 16px;
     line-height: 1.1em;
-    border-bottom: 1px solid #cccccc;
   }
     #node-list li:after {
       content: "\0020";
@@ -353,6 +352,24 @@ ol, ul {
     height: 20px;
     background: url(/site_media/img/destroy.png) no-repeat 0 0;
   }
+
+  #node-list .add-child {
+      position: absolute;
+      right: 30px;
+      top: 14px;
+      display: none;
+  }
+
+  #node-list .edit-node {
+      position: absolute;
+      right: 50px;
+      top: 14px;
+      display: none;
+  }
+
+  #node-list li:hover .add-child { display: block;}
+  #node-list li:hover .edit-node { display: block;}
+
 
   #node-list .node-children-expander {
    position: absolute;
