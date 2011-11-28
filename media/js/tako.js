@@ -14,6 +14,7 @@ $(function(){
      });
      this.children = new ChildNodeList;
      this.children.url = "/api/" + this.id + "/";
+     this.htmlId = "node-" + this.cid;
    },
 
    loadChildren: function() {
@@ -43,13 +44,7 @@ $(function(){
       this.model.bind('change', this.render, this);
       this.model.bind('destroy', this.remove, this);
       this.model.children.bind('reset',this.addAll,this);
-//      this.model.bind('all',this.eventLogger,this);
-//      this.model.children.bind('all',this.eventLogger,this);
     },
-
-eventLogger: function(e) {
-  console.log(e);
-},
 
     render: function() {
       $(this.el).html(this.template(this.model.toJSON()));
@@ -90,14 +85,15 @@ eventLogger: function(e) {
     },
 
     addOne: function(node) {
+      console.log("node.addOne");
       console.log(node.get('label'));
       var view = new NodeView({model: node});
-      this.$(".children ul").append(view.render().el);
-      console.log("node addOne done");
+      console.log(node.get('parent_id'));
+      this.$("#node-" + node.get('parent_id') + " ul.children-node-list").append(view.render().el);
     },
 
     addAll: function() {
-      Nodes.each(this.addOne);
+      this.model.children.each(this.addOne);
     },
 
     showChildren: function() {
