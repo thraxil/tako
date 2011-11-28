@@ -42,8 +42,10 @@ $(function(){
     events: {
       "dblclick div.node-label"             : "edit",
       "click span.node-destroy"             : "clear",
+      "click span.add-child"             : "createChildForm",
       "click span.node-children-expander"   : "toggleChildren",
-      "keypress .node-input"                : "updateOnEnter"
+      "keypress .node-input"                : "updateOnEnter",
+      "keypress .add-child-input"                : "addChildOnEnter"
     },
 
     initialize: function() {
@@ -74,11 +76,23 @@ $(function(){
     close: function() {
       this.model.save({label: this.input.val()});
       $(this.el).removeClass("editing");
+      $(this.el).removeClass("adding-child");
     },
 
     updateOnEnter: function(e) {
       if (e.keyCode == 13) this.close();
     },
+
+    addChildOnEnter: function(e) {
+      if (e.keyCode == 13) {
+	console.log("adding child");
+	console.log(e.target.value);
+	this.model.children.create({label: e.target.value,
+				    parent_id: this.model.get('id')});
+	this.close();
+	}
+    },
+
 
     remove: function() {
       $(this.el).remove();
@@ -86,6 +100,12 @@ $(function(){
 
     clear: function() {
       this.model.destroy();
+    },
+
+    createChildForm: function() {
+      console.log("createChildForm");
+      console.log(this);
+      $(this.el).addClass("adding-child");
     },
 
     addOne: function(node) {

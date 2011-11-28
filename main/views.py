@@ -38,6 +38,7 @@ def api(request,node_id):
         if node_id:
             n = get_object_or_404(Node,id=node_id)
             d = loads(request.read())
+            print str(d)
             n.label = d['label']
             n.details = d['details']
             n.save()
