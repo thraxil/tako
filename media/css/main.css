@@ -287,7 +287,7 @@ ol, ul {
   margin-top: 10px;
 }
   #node-list li {
-    padding: 12px 20px 11px 0;
+    padding: 2px;
     position: relative;
     font-size: 16px;
     line-height: 1.1em;
@@ -345,7 +345,7 @@ ol, ul {
   #node-list .node-destroy {
     position: absolute;
     right: 5px;
-    top: 14px;
+    top: 0px;
     display: none;
     cursor: pointer;
     width: 20px;
@@ -356,19 +356,28 @@ ol, ul {
   #node-list .add-child {
       position: absolute;
       right: 30px;
-      top: 14px;
+    top: 0px;
       display: none;
+      background-color:#ccc;
+      color:#fff;
   }
 
   #node-list .edit-node {
       position: absolute;
       right: 50px;
-      top: 14px;
+    top: 0px;
       display: none;
+      background-color:#ccc;
+      color:#fff;
   }
+
+  #node-list li:hover { background-color: #eee;}
 
   #node-list li:hover .add-child { display: block;}
   #node-list li:hover .edit-node { display: block;}
+
+  #node-list li:hover .add-child:hover { background-color:#000; color: #fff;}
+  #node-list li:hover .edit-node:hover { background-color:#000; color: #fff;}
 
 
   #node-list .node-children-expander {
@@ -381,27 +390,5 @@ ol, ul {
     #node-list .node-destroy:hover {
       background-position: 0 -20px;
     }
-
-#instructions {
-  width: 520px;
-  margin: 10px auto;
-  color: #777777;
-  text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
-  text-align: center;
-}
-  #instructions a {
-    color: #336699;
-  }
-
-#credits {
-  width: 520px;
-  margin: 30px auto;
-  color: #999;
-  text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
-  text-align: center;
-}
-  #credits a {
-    color: #888;
-  }
 
 #item-template {display:none;}
