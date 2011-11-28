@@ -109,7 +109,7 @@ $(function(){
 
     addOne: function(node) {
       var view = new NodeView({model: node});
-      this.$("#node-" + node.get('parent_id') + " ul.children-node-list").append(view.render().el);
+      this.$("#node-" + node.get('parent_id') + ">.children>ul.children-node-list").append(view.render().el);
     },
 
     addAll: function() {
