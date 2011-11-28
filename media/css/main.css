@@ -308,7 +308,7 @@ ol, ul {
   #node-list .edit {
     display: none;
   }
-    #node-list .editing .edit {
+  #node-list .editing .edit {
       display: block;
     }
     #node-list .editing input {
@@ -326,6 +326,10 @@ ol, ul {
       -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
       box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
     }
+
+  #node-list .create-child {display: none;}
+  #node-list .adding-child .create-child {display: block;}
+
   #node-list .children {
     display: none;
   }
@@ -354,21 +358,21 @@ ol, ul {
   }
 
   #node-list .add-child {
-      position: absolute;
-      right: 30px;
-    top: 0px;
-      display: none;
-      background-color:#ccc;
-      color:#fff;
+   position: absolute;
+   right: 30px;
+   top: 0px;
+   display: none;
+   background-color:#ccc;
+   color:#fff;
   }
 
   #node-list .edit-node {
-      position: absolute;
-      right: 50px;
-    top: 0px;
-      display: none;
-      background-color:#ccc;
-      color:#fff;
+   position: absolute;
+   right: 50px;
+   top: 0px;
+   display: none;
+   background-color:#ccc;
+   color:#fff;
   }
 
   #node-list li:hover { background-color: #eee;}
@@ -379,16 +383,15 @@ ol, ul {
   #node-list li:hover .add-child:hover { background-color:#000; color: #fff;}
   #node-list li:hover .edit-node:hover { background-color:#000; color: #fff;}
 
-
   #node-list .node-children-expander {
    position: absolute;
    left: -15px;
   }
-    #node-list li:hover .node-destroy {
+  #node-list li:hover .node-destroy {
       display: block;
-    }
-    #node-list .node-destroy:hover {
+  }
+  #node-list .node-destroy:hover {
       background-position: 0 -20px;
-    }
+  }
 
 #item-template {display:none;}

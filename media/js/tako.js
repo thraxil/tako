@@ -21,7 +21,6 @@ $(function(){
    toggleChildren: function() {
      if (!this.showing_children) {
        this.children.fetch();
-       console.log("children fetched");
        this.showing_children = true;
       } else {
 	this.children.reset();
@@ -41,10 +40,10 @@ $(function(){
     tagName:  "li",
     template: _.template($('#item-template').html()),
     events: {
-      "dblclick div.node-label"    : "edit",
-      "click span.node-destroy"   : "clear",
+      "dblclick div.node-label"             : "edit",
+      "click span.node-destroy"             : "clear",
       "click span.node-children-expander"   : "toggleChildren",
-      "keypress .node-input"      : "updateOnEnter"
+      "keypress .node-input"                : "updateOnEnter"
     },
 
     initialize: function() {
@@ -61,9 +60,7 @@ $(function(){
 
     setLabel: function() {
       var label = this.model.get('label');
-      if (!label) {
-	label = "no label";
-      }
+      if (!label) { label = "no label"; }
       this.$('.node-label').text(label);
       this.input = this.$('.node-input');
       this.input.bind('blur', _.bind(this.close, this)).val(label);
@@ -92,10 +89,7 @@ $(function(){
     },
 
     addOne: function(node) {
-      console.log("node.addOne");
-      console.log(node.get('label'));
       var view = new NodeView({model: node});
-      console.log(node.get('parent_id'));
       this.$("#node-" + node.get('parent_id') + " ul.children-node-list").append(view.render().el);
     },
 
@@ -110,7 +104,7 @@ $(function(){
       }
       $(this.el).toggleClass("showing-children");
       this.model.toggleChildren();
-					 }
+    }
   });
 
   window.AppView = Backbone.View.extend({
@@ -137,7 +131,6 @@ $(function(){
     addOne: function(node) {
       var view = new NodeView({model: node});
       this.$("#node-list").append(view.render().el);
-      console.log("addOne done");
     },
 
     addAll: function() {
