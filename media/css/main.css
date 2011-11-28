@@ -54,7 +54,7 @@ td
 ol, ul
 {
 	display: block;
-	margin: 0 4em 0.7em 4em;
+	margin: 0 0 0 2em;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
@@ -375,7 +375,9 @@ ol, ul {
    color:#fff;
   }
 
-  #node-list li:hover { background-color: #eee;}
+.node-label {border-bottom: #eee solid 1px;}
+
+  #node-list li:hover .node-label:hover { border-bottom: #666 solid 1px;}
 
   #node-list li:hover .add-child { display: block;}
   #node-list li:hover .edit-node { display: block;}
