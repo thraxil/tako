@@ -15,11 +15,18 @@ $(function(){
      this.children = new ChildNodeList;
      this.children.url = "/api/" + this.id + "/";
      this.htmlId = "node-" + this.cid;
+     this.showing_children = false;
    },
 
-   loadChildren: function() {
-     this.children.fetch();
-     console.log("children fetched");
+   toggleChildren: function() {
+     if (!this.showing_children) {
+       this.children.fetch();
+       console.log("children fetched");
+       this.showing_children = true;
+      } else {
+	this.children.reset();
+	this.showing_children = false;
+      }
    }
   });
 
@@ -36,7 +43,7 @@ $(function(){
     events: {
       "dblclick div.node-label"    : "edit",
       "click span.node-destroy"   : "clear",
-      "click span.node-children-expander"   : "showChildren",
+      "click span.node-children-expander"   : "toggleChildren",
       "keypress .node-input"      : "updateOnEnter"
     },
 
@@ -96,11 +103,14 @@ $(function(){
       this.model.children.each(this.addOne);
     },
 
-    showChildren: function() {
-      this.model.loadChildren();
-      $(this.el).addClass("showing-children");
-    }
-
+    toggleChildren: function() {
+      if (this.model.showing_children) {
+	$(this.el).children(".children-node-list").empty();
+	this.model.children.unbind();
+      }
+      $(this.el).toggleClass("showing-children");
+      this.model.toggleChildren();
+					 }
   });
 
   window.AppView = Backbone.View.extend({
