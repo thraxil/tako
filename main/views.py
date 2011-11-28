@@ -10,7 +10,6 @@ from simplejson import loads, dumps
 def node(request,node_id):
     if node_id:
         n = get_object_or_404(Node,id=node_id)
-        print str(n.get_children())
         return dict(node=n,nodes=n.get_children())
     else:
         return dict(nodes=user_top_level(request.user))
@@ -51,9 +50,8 @@ def api(request,node_id):
 
     if node_id:
         n = get_object_or_404(Node,id=node_id)
-        s = dumps([n.as_dict() for n in n.get_children()])
-        print str(s)
-        return HttpResponse(s,mimetype="application/json")
+        return HttpResponse(dumps([n.as_dict() for n in n.get_children()]),
+                            mimetype="application/json")
     else:
         nodes = user_top_level(request.user)
         return HttpResponse(dumps([n.as_dict() for n in nodes]), 
