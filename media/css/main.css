@@ -308,7 +308,7 @@ ol, ul {
   #node-list .edit {
     display: none;
   }
-  #node-list .editing .edit {
+  #node-list .editing>.node>.edit {
       display: block;
     }
     #node-list .editing input {
@@ -328,7 +328,7 @@ ol, ul {
     }
 
   #node-list .create-child {display: none;}
-  #node-list .adding-child .create-child {display: block;}
+  #node-list .adding-child>.node>.create-child {display: block;}
 
   #node-list .children {
     display: none;

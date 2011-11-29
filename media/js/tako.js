@@ -10,20 +10,18 @@ $(function(){
     },
 
    url: function() {
-      console.log("backbone.url");
-     if (!this.get('id')) {
-       return "/api/" + this.get("parent_id") + "/";
+      if (!this.get('id')) {
+	if (this.get('parent_id') == 0) return "/api/";
+        return "/api/" + this.get("parent_id") + "/";
      }
+     if (this.get('id') == 0) return "/api/";
      return "/api/" + this.get('id') + "/";
    },
 
    initialize: function() {
      ChildNodeList = Backbone.Collection.extend({
         model: Node,
-	url: function() {
-	  console.log("url()");
-	  return '/api/' + this.get('id') + "/";
-	}
+	url: '/api/' + this.get('id') + "/"
      });
      this.children = new ChildNodeList;
      this.children.url = "/api/" + this.get('id') + "/";
@@ -76,6 +74,7 @@ $(function(){
       this.model.bind('change', this.render, this);
       this.model.bind('destroy', this.remove, this);
       this.model.children.bind('reset',this.addAll,this);
+      this.model.children.bind('change',this.render,this);
     },
 
     render: function() {
@@ -136,9 +135,6 @@ $(function(){
     },
 
     createChildForm: function(e) {
-      console.log("createChildForm");
-      console.log(this);
-      console.log(e);
       $(this.el).addClass("adding-child");
       e.stopPropagation();
     },
