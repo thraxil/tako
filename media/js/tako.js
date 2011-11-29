@@ -1,4 +1,5 @@
 $(function(){
+  window.idMap = { };
   window.Node = Backbone.Model.extend({
     defaults: function() {
       return {
@@ -16,6 +17,17 @@ $(function(){
      this.children.url = "/api/" + this.id + "/";
      this.htmlId = "node-" + this.cid;
      this.showing_children = false;
+     window.idMap[this.get('id')] = this.htmlId;
+   },
+
+   toFullJSON: function() {
+     var j = this.toJSON();
+     j['htmlId'] = this.htmlId;
+     return j;
+   },
+
+   getParent: function () {
+
    },
 
    toggleChildren: function() {
@@ -55,7 +67,7 @@ $(function(){
     },
 
     render: function() {
-      $(this.el).html(this.template(this.model.toJSON()));
+      $(this.el).html(this.template(this.model.toFullJSON()));
       this.setLabel();
       return this;
     },
@@ -92,7 +104,9 @@ $(function(){
 	console.log("adding child");
 	console.log(e.target.value);
 	this.model.children.create({label: e.target.value,
-				    parent_id: this.model.get('id')});
+				    parent_id: this.model.get('id'),
+				    parent: this.model
+				   });
 	this.closeAddChild();
 	}
     },
@@ -102,6 +116,8 @@ $(function(){
     },
 
     clear: function(e) {
+      console.log(this.model.get('id'));
+      console.log(this.model.url);
       this.model.destroy();
       e.stopPropagation();
     },
@@ -116,7 +132,9 @@ $(function(){
 
     addOne: function(node) {
       var view = new NodeView({model: node});
-      this.$("#node-" + node.get('parent_id') + ">.children>ul.children-node-list").append(view.render().el);
+      var selector = "#" + window.idMap[node.get('parent_id')] + " >.children > ul.children-node-list";
+      var ul = this.$(selector);
+      ul.append(view.render().el);
     },
 
     addAll: function() {

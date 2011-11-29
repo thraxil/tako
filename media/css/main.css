@@ -377,7 +377,9 @@ ol, ul {
 
 .node-label {border-bottom: #eee solid 1px;}
 
-  #node-list li:hover .node-label:hover { border-bottom: #666 solid 1px;}
+  #node-list li:hover .node-label:hover { 
+      background-color: #eee;
+border-bottom: #666 solid 1px;}
 
   #node-list li:hover .add-child { display: block;}
   #node-list li:hover .edit-node { display: block;}
