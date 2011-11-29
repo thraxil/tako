@@ -1,5 +1,6 @@
 $(function(){
   window.idMap = { };
+
   window.Node = Backbone.Model.extend({
     defaults: function() {
       return {
@@ -8,13 +9,24 @@ $(function(){
       };
     },
 
+   url: function() {
+      console.log("backbone.url");
+     if (!this.get('id')) {
+       return "/api/" + this.get("parent_id") + "/";
+     }
+     return "/api/" + this.get('id') + "/";
+   },
+
    initialize: function() {
      ChildNodeList = Backbone.Collection.extend({
         model: Node,
-	url: "/api/" + this.id + "/"
+	url: function() {
+	  console.log("url()");
+	  return '/api/' + this.get('id') + "/";
+	}
      });
      this.children = new ChildNodeList;
-     this.children.url = "/api/" + this.id + "/";
+     this.children.url = "/api/" + this.get('id') + "/";
      this.htmlId = "node-" + this.cid;
      this.showing_children = false;
      window.idMap[this.get('id')] = this.htmlId;
@@ -109,6 +121,7 @@ $(function(){
 				   });
 	this.closeAddChild();
 	}
+      e.stopPropagation();
     },
 
     remove: function() {
