@@ -334,6 +334,15 @@ ol, ul {
   #node-list .create-child {display: none;}
   #node-list .adding-child>.node>.create-child {display: block;}
 
+  .details {
+      display: none;
+  }
+
+  .node:hover .display>.details {
+      display: block;
+      background-color: #eee;
+  }
+
   #node-list .children {
     display: none;
   }
