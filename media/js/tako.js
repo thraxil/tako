@@ -122,8 +122,6 @@ $(function(){
 
     addChildOnEnter: function(e) {
       if (e.keyCode == 13) {
-	console.log("adding child");
-	console.log(e.target.value);
 	this.model.children.create({label: e.target.value,
 				    parent_id: this.model.get('id'),
 				    parent: this.model
@@ -138,8 +136,6 @@ $(function(){
     },
 
     clear: function(e) {
-      console.log(this.model.get('id'));
-      console.log(this.model.url);
       this.model.destroy();
       e.stopPropagation();
     },

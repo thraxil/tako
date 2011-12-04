@@ -346,7 +346,7 @@ ol, ul {
   #node-list .children {
     display: none;
   }
-  #node-list .showing-children .children {
+  #node-list .showing-children>.node>.children {
     display:block;
   }
   #node-list .check {
