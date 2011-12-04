@@ -338,7 +338,7 @@ ol, ul {
       display: none;
   }
 
-  .node:hover .display>.details {
+  .display:hover>.details {
       display: block;
       background-color: #eee;
   }
