@@ -394,11 +394,11 @@ ol, ul {
       background-color: #eee;
 border-bottom: #666 solid 1px;}
 
-  #node-list li:hover .add-child { display: block;}
-  #node-list li:hover .edit-node { display: block;}
+  #node-list .display:hover>.add-child { display: block;}
+  #node-list .display:hover>.edit-node { display: block;}
 
-  #node-list li:hover .add-child:hover { background-color:#000; color: #fff;}
-  #node-list li:hover .edit-node:hover { background-color:#000; color: #fff;}
+  #node-list .add-child:hover { background-color:#000; color: #fff;}
+  #node-list .edit-node:hover { background-color:#000; color: #fff;}
 
   .add-child-input {
     width: 100%;
@@ -413,7 +413,7 @@ border-bottom: #666 solid 1px;}
    position: absolute;
    left: -15px;
   }
-  #node-list li:hover .node-destroy {
+  #node-list .display:hover>.node-destroy {
       display: block;
   }
   #node-list .node-destroy:hover {
