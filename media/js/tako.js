@@ -154,6 +154,7 @@ $(function(){
 
     addAll: function() {
       this.model.children.each(this.addOne);
+      this.$(".children-node-list").sortable({ containment: 'parent' });
     },
 
     toggleChildren: function(e) {
