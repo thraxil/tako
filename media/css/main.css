@@ -387,6 +387,15 @@ border-bottom: #666 solid 1px;}
   #node-list li:hover .add-child:hover { background-color:#000; color: #fff;}
   #node-list li:hover .edit-node:hover { background-color:#000; color: #fff;}
 
+  .add-child-input {
+    width: 100%;
+
+      font-size: 20px;
+      font-family: inherit;
+      margin: 0;
+      line-height: 1.6em;
+  }
+
   #node-list .node-children-expander {
    position: absolute;
    left: -15px;
