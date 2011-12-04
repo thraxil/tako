@@ -74,12 +74,16 @@ $(function(){
       this.model.bind('change', this.render, this);
       this.model.bind('destroy', this.remove, this);
       this.model.children.bind('reset',this.addAll,this);
-      this.model.children.bind('change',this.render,this);
+      this.model.children.bind('add',this.render,this);
+      this.model.children.bind('remove',this.render,this);
     },
 
     render: function() {
       $(this.el).html(this.template(this.model.toFullJSON()));
       this.setLabel();
+      if (this.model.showing_children) {
+	this.model.children.fetch();
+      }
       return this;
     },
 
@@ -119,6 +123,7 @@ $(function(){
 				    parent: this.model
 				   });
 	this.closeAddChild();
+	this.model.showing_children = true;
 	}
       e.stopPropagation();
     },
@@ -159,6 +164,7 @@ $(function(){
       this.model.toggleChildren();
       e.stopPropagation();
     }
+
   });
 
   window.AppView = Backbone.View.extend({
