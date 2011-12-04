@@ -63,6 +63,7 @@ $(function(){
     template: _.template($('#item-template').html()),
     events: {
       "dblclick div.node-label"             : "edit",
+      "click div.node-label"               : "closeAddChild",
       "click span.node-destroy"             : "clear",
       "click span.add-child"             : "createChildForm",
       "click span.node-children-expander"   : "toggleChildren",
@@ -116,8 +117,9 @@ $(function(){
       if (e.keyCode == 13) this.close();
     },
 
-    closeAddChild: function() {
+    closeAddChild: function(e) {
       $(this.el).removeClass("adding-child");
+      e.stopPropagation();
     },
 
     addChildOnEnter: function(e) {
