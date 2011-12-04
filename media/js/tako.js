@@ -67,7 +67,8 @@ $(function(){
       "click span.add-child"             : "createChildForm",
       "click span.node-children-expander"   : "toggleChildren",
       "keypress .node-input"                : "updateOnEnter",
-      "keypress .add-child-input"                : "addChildOnEnter"
+      "keypress .add-child-input"                : "addChildOnEnter",
+      "click .node-save"                    : "close"
     },
 
     initialize: function() {
@@ -92,7 +93,11 @@ $(function(){
       if (!label) { label = "no label"; }
       this.$('.node-label').text(label);
       this.input = this.$('.node-input');
-      this.input.bind('blur', _.bind(this.close, this)).val(label);
+      this.detailsInput = this.$('.node-details-input');
+      this.input.val(label);
+      this.detailsInput.val(this.model.get('details'));
+//      this.input.bind('blur', _.bind(this.close, this)).val(label);
+//      this.detailsInput.bind('blur', _.bind(this.close, this)).val(label);
     },
 
     edit: function(e) {
@@ -102,7 +107,8 @@ $(function(){
     },
 
     close: function() {
-      this.model.save({label: this.input.val()});
+      this.model.save({label: this.input.val(),
+		       details: this.detailsInput.val()});
       $(this.el).removeClass("editing");
     },
 
