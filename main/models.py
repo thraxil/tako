@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from treebeard.mp_tree import MP_Node
 from django.contrib.auth.models import User
+from markdown import markdown
 
 class Node(MP_Node):
     label = models.CharField(max_length=256,default="")
@@ -32,6 +33,7 @@ class Node(MP_Node):
         return dict(label=self.label,
                     id=self.id,
                     details=self.details,
+                    details_rendered=markdown(self.details),
                     children_count=self.get_children_count(),
                     parent_id=parent_id,
                     )
