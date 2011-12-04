@@ -128,7 +128,6 @@ $(function(){
 				    parent_id: this.model.get('id'),
 				    parent: this.model
 				   });
-	this.closeAddChild();
 	this.model.showing_children = true;
 	}
       e.stopPropagation();
