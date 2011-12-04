@@ -97,8 +97,6 @@ $(function(){
       this.detailsInput = this.$('.node-details-input');
       this.input.val(label);
       this.detailsInput.val(this.model.get('details'));
-//      this.input.bind('blur', _.bind(this.close, this)).val(label);
-//      this.detailsInput.bind('blur', _.bind(this.close, this)).val(label);
     },
 
     edit: function(e) {
