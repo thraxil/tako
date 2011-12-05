@@ -56,3 +56,14 @@ def api(request,node_id):
         nodes = user_top_level(request.user)
         return HttpResponse(dumps([n.as_dict() for n in nodes]), 
                             mimetype="application/json")
+
+@login_required
+def reorder(request,node_id):
+    if request.method == "POST":
+        p = get_object_or_404(Node,id=node_id)
+        keys = [k for k in request.GET.keys() if k.startswith("node_")]
+        keys.sort(key=lambda x:int(x.split("_")[1]))
+        children = [int(request.GET[k]) for k in keys if k.startswith('node_')]
+        p.update_children_order(children)
+        return HttpResponse("ok")
+    return HttpResponse("POST, only. Thanks")

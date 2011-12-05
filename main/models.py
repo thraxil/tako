@@ -38,5 +38,19 @@ class Node(MP_Node):
                     parent_id=parent_id,
                     )
 
+    def update_children_order(self,children_ids):
+        """children_ids is a list of Node ids for the children
+        in the order that they should be set to.
+
+        use with caution. if the ids in node_ids don't match up
+        right it will break or do strange things.
+        """
+        for node_id in children_ids:
+            n = Node.objects.get(id=node_id)
+            p = n.get_parent()
+            n.move(p,pos="last-child")
+        return 
+
+
 def user_top_level(user):
     return Node.get_root_nodes().filter(user=user)

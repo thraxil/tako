@@ -1,5 +1,28 @@
 $(function(){
   window.idMap = { };
+  window.allNodes = { };
+
+  var saveOrder = function(e) {
+    console.log("saveOrder");
+    var id = $(e.target).parent().parent().attr('id');
+    var cid = id.split("-")[1];
+    var node = window.allNodes[cid];
+    var url = node.saveOrderURL() + "?";
+    console.log(cid);
+    var worktodo = 0;
+    $(e.target).children("li").each(function(index,element) {
+       worktodo = 1;
+       var n = $(element).children(".node");
+       var id = window.allNodes[n.attr('id').split("-")[1]].get("id");
+       url += "node_" + index + "=" + id + ";";
+    });
+    if (worktodo == 1) {
+      var req = new XMLHttpRequest();
+      req.open("POST",url,true);
+      req.send(null);
+    }
+  };
+
 
   window.Node = Backbone.Model.extend({
     defaults: function() {
@@ -26,6 +49,7 @@ $(function(){
      this.children = new ChildNodeList;
      this.children.url = "/api/" + this.get('id') + "/";
      this.htmlId = "node-" + this.cid;
+     window.allNodes[this.cid] = this;
      this.showing_children = false;
      window.idMap[this.get('id')] = this.htmlId;
    },
@@ -36,8 +60,8 @@ $(function(){
      return j;
    },
 
-   getParent: function () {
-
+   saveOrderURL: function () {
+     return "/api/" + this.get('id') + "/reorder/";
    },
 
    toggleChildren: function() {
@@ -154,7 +178,11 @@ $(function(){
 
     addAll: function() {
       this.model.children.each(this.addOne);
-      this.$(".children-node-list").sortable({ containment: 'parent' });
+
+
+      this.$(".children-node-list").sortable({ containment: 'parent'
+					       ,stop: saveOrder
+					     });
     },
 
     toggleChildren: function(e) {
