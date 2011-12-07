@@ -340,8 +340,13 @@ ol, ul {
 
   .display:hover>.details {
       display: block;
+      position: absolute;
       background-color: #eee;
-  }
+      width: 800px;
+      border: #000 solid 2px;
+      padding: 5px;
+      z-index: 99;
+}
 
   #node-list .children {
     display: none;
