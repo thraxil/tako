@@ -8,6 +8,7 @@ body
 	font: normal 0.88em/140% arial, helvetica, verdana, sans-serif;
 	color: #000;
     background: url(/site_media/img/octo.jpg) no-repeat 0 0;	
+background-attachment:fixed;
 }
 
 /* ########## Standard elements ########## */
