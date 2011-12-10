@@ -1,3 +1,4 @@
+from django.db.models import Q
 from tako.main.models import Node, user_top_level
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -13,6 +14,13 @@ def node(request,node_id):
         return dict(node=n)
     else:
         return dict()
+
+@login_required
+@render_to("main/search.html")
+def search(request):
+    q = request.GET.get("q","")
+    results = Node.objects.filter(Q(label__icontains=q) | Q(details__icontains=q))
+    return dict(q=q,results=results)
 
 @login_required
 def add(request,node_id):

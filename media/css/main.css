@@ -458,3 +458,14 @@ color: #000;
 text-decoration: none;
 font-weight: bold;
 }
+
+#search {
+position: absolute;
+top: 0px;
+right: 0px;
+}
+#search input {
+border: none;
+background-color: #666;
+color: #fff;
+}
