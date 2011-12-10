@@ -15,9 +15,36 @@
 
 {% block content %}
 
+
 <div id="takoapp">
 
       <div class="content">
+
+<p class="breadcrumbs">
+<a href="/">TAKO</a> &#187; 
+{% if node %}
+{% if not node.is_root %}
+{% for ancestor in node.get_ancestors %}<a href="/{{ancestor.id}}/">{{ancestor.label}}</a> &#187; {% endfor %}
+{% endif %}
+{% endif %}
+</p>
+
+{% if node %}
+<div id="node-page">
+
+
+<h2>{{node.label}}</h2>
+<p class="timeline">added: <b>{{node.added}}</b>
+modified: <b>{{node.modified}}</b></p>
+{% if node.details %}
+{{node.details|markdown}}
+{% endif %}
+</div>
+<script>
+window.rootNodeId = {{node.id}};
+</script>
+{% endif %}
+
 
         <div id="create-node">
           <input id="new-node" placeholder="Add item" type="text" />
@@ -38,6 +65,7 @@
         <div class="display">
           <span class="node-children-expander"><%= children_count ? '+' : '*' %></span>
           <div class="node-label"></div>
+	  <%= id ? '<span class="go">[<a href="/' + id + '/">g</a>]</span>' : '' %>
 	  <span class="add-child">[+]</span>
           <span class="node-destroy"></span>
 	  <div class="<%= details_rendered ? 'details' : '' %>"><%= details_rendered %></div>

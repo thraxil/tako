@@ -78,7 +78,7 @@ $(function(){
 
   window.NodeList = Backbone.Collection.extend({
     model: Node,
-    url: "/api/"
+    url: window.rootNodeId ? "/api/" + window.rootNodeId : "/api/"
   });
   window.Nodes = new NodeList;
 

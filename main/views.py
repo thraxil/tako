@@ -10,9 +10,9 @@ from simplejson import loads, dumps
 def node(request,node_id):
     if node_id:
         n = get_object_or_404(Node,id=node_id)
-        return dict(node=n,nodes=n.get_children())
+        return dict(node=n)
     else:
-        return dict(nodes=user_top_level(request.user))
+        return dict()
 
 @login_required
 def add(request,node_id):
