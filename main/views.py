@@ -37,6 +37,10 @@ def edit(request,node_id):
     node = get_object_or_404(Node,id=node_id)
     node.label = request.POST.get('label','')
     node.details = request.POST.get('details','')
+    if request.POST.get('target',None):
+        node.target = request.POST.get('target',None)
+    else:
+        node.target = None
     node.save()
     return HttpResponseRedirect("/%d/" % node.id)
 

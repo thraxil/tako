@@ -473,3 +473,11 @@ color: #fff;
 .edit {
  display:none;
 }
+.target {
+color: #b00;
+}
+span.target {
+position: absolute;
+top: 0px;
+right: 100px;
+}

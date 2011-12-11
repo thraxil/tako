@@ -37,6 +37,7 @@ class Node(MP_Node):
                     details_rendered=markdown(self.details),
                     children_count=self.get_children_count(),
                     parent_id=parent_id,
+                    target=str(self.target or ""),
                     )
 
     def update_children_order(self,children_ids):
