@@ -11,6 +11,7 @@ class Node(MP_Node):
     details = models.TextField(blank=True,default="")
     added = models.DateTimeField(auto_now_add=True,editable=False)
     modified = models.DateTimeField(auto_now=True,editable=False)
+    target = models.DateField(null=True,blank=True)
 
     def save(self,*args,**kwargs):
         slug = slugify(self.label)[:255]
