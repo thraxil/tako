@@ -236,3 +236,8 @@ $(function(){
 
   window.App = new AppView;
 });
+
+var nodeEdit = function () {
+  $(".edit").show();
+};
+

@@ -31,18 +31,28 @@
 
 {% if node %}
 <div id="node-page">
-
-
 <h2>{{node.label}}</h2>
 <p class="timeline">added: <b>{{node.added}}</b>
 modified: <b>{{node.modified}}</b></p>
 {% if node.details %}
 {{node.details|markdown}}
 {% endif %}
+<p><a href="" onclick="nodeEdit();return false">edit</a></p>
 </div>
 <script>
 window.rootNodeId = {{node.id}};
 </script>
+<div class="edit">
+<form action="edit/" method="post">
+<b>Label</b><br />
+<input type="text" value="{{node.label}}" size="70" /><br />
+<b>Details</b><br />
+<textarea name="details" rows="10"
+	  cols="70">{{node.details}}</textarea><br />
+<input type="submit" value="save" />
+</form>
+</div>
+
 {% endif %}
 
 

@@ -469,3 +469,7 @@ border: none;
 background-color: #666;
 color: #fff;
 }
+
+.edit {
+ display:none;
+}
