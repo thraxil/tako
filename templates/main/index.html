@@ -15,6 +15,38 @@
 
 {% block content %}
 
+<div id="due">
+
+  {% if due %}
+  <div id="due-today">
+    <ul><b>DUE TODAY:</b>
+      {% for node in due %}
+      <li>{% for ancestor in node.get_ancestors %}<a href="/{{ancestor.id}}/">{{ancestor.label}}</a> &#187; {% endfor %}<a href="/{{node.id}}/">{{node.label}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if overdue %}
+  <div id="overdue">
+    <ul><b>OVERDUE:</b>
+      {% for node in overdue %}
+      <li>{% for ancestor in node.get_ancestors %}<a href="/{{ancestor.id}}/">{{ancestor.label}}</a> &#187; {% endfor %}<a href="/{{node.id}}/">{{node.label}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if upcoming %}
+  <div id="upcoming">
+    <ul><b>UPCOMING:</b>
+      {% for node in upcoming %}
+      <li><b>{{node.target}}</b> {% for ancestor in node.get_ancestors %}<a href="/{{ancestor.id}}/">{{ancestor.label}}</a> &#187; {% endfor %}<a href="/{{node.id}}/">{{node.label}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
 
 <div id="takoapp">
 

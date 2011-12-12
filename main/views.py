@@ -5,15 +5,19 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from annoying.decorators import render_to
 from simplejson import loads, dumps
+from datetime import datetime
 
 @login_required
 @render_to("main/index.html")
 def node(request,node_id):
+    due = Node.objects.filter(target=datetime.now())
+    overdue = Node.objects.filter(target__lt=datetime.now()).order_by("target")
+    upcoming = Node.objects.filter(target__gt=datetime.now()).order_by("target")[:10]
+    d = dict(due=due,overdue=overdue,upcoming=upcoming)
     if node_id:
         n = get_object_or_404(Node,id=node_id)
-        return dict(node=n)
-    else:
-        return dict()
+        d['node'] = n
+    return d
 
 @login_required
 @render_to("main/search.html")
