@@ -486,6 +486,9 @@ right: 100px;
 position: fixed;
 right: 0px;
 bottom: 0px;
+background-color: #000;
+border: #000 solid 1px;
+z-index: 10;
 }
 #due-today {
 background-color: orange;
