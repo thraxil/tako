@@ -11,6 +11,11 @@
 	{% block feeds %}{% endblock %}
 </head>
 <body>
+  <div id="search">
+    <form action="/search/" method="get">
+      <input type="text" placeholder="search" name="q" />
+    </form>
+  </div>
       {% block pagetitle %}{% endblock %}
       {% block content %}{% endblock %}
       <div class="visualclear"></div>

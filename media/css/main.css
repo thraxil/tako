@@ -8,6 +8,7 @@ body
 	font: normal 0.88em/140% arial, helvetica, verdana, sans-serif;
 	color: #000;
     background: url(/site_media/img/octo.jpg) no-repeat 0 0;	
+background-attachment:fixed;
 }
 
 /* ########## Standard elements ########## */
@@ -311,29 +312,47 @@ ol, ul {
   #node-list .editing>.node>.edit {
       display: block;
     }
-    #node-list .editing input {
-      width: 800px;
+    #node-list .editing input[type="text"] {
+      width: 100%;
       font-size: 24px;
       font-family: inherit;
       margin: 0;
       line-height: 1.6em;
       border: 0;
       outline: none;
-      padding: 10px 7px 0px 27px;
+      padding-bottom: 2px;
       border: 1px solid #999999;
       -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
       -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
       -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
       box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
     }
+    #node-list .editing textarea {
+	width: 100%;
+	height: 75px;
+    }
 
   #node-list .create-child {display: none;}
   #node-list .adding-child>.node>.create-child {display: block;}
 
+  .details {
+      display: none;
+  }
+
+  .display:hover>.details {
+      display: block;
+      position: absolute;
+      background-color: #eee;
+      width: 800px;
+      border: #000 solid 2px;
+      padding: 5px;
+      z-index: 99;
+}
+
   #node-list .children {
     display: none;
   }
-  #node-list .showing-children .children {
+  #node-list .showing-children>.node>.children {
     display:block;
   }
   #node-list .check {
@@ -366,6 +385,18 @@ ol, ul {
    color:#fff;
   }
 
+  #node-list .go {
+      position: absolute;
+      right: 50px;
+      top: 0px;
+      display: none;
+      background-color:#ccc;
+      color: #fff;
+      font-size: .9em;
+  }
+
+  .go a{ color: #fff; text-decoration: none;}
+
   #node-list .edit-node {
    position: absolute;
    right: 50px;
@@ -381,17 +412,28 @@ ol, ul {
       background-color: #eee;
 border-bottom: #666 solid 1px;}
 
-  #node-list li:hover .add-child { display: block;}
-  #node-list li:hover .edit-node { display: block;}
+  #node-list .display:hover>.add-child { display: block;}
+  #node-list .display:hover>.go { display: block;}
+  #node-list .display:hover>.edit-node { display: block;}
 
-  #node-list li:hover .add-child:hover { background-color:#000; color: #fff;}
-  #node-list li:hover .edit-node:hover { background-color:#000; color: #fff;}
+  #node-list .add-child:hover { background-color:#000; color: #fff;}
+  #node-list .go:hover { background-color:#000; color: #fff;}
+  #node-list .edit-node:hover { background-color:#000; color: #fff;}
+
+  .add-child-input {
+    width: 100%;
+
+      font-size: 20px;
+      font-family: inherit;
+      margin: 0;
+      line-height: 1.6em;
+  }
 
   #node-list .node-children-expander {
    position: absolute;
    left: -15px;
   }
-  #node-list li:hover .node-destroy {
+  #node-list .display:hover>.node-destroy {
       display: block;
   }
   #node-list .node-destroy:hover {
@@ -399,3 +441,83 @@ border-bottom: #666 solid 1px;}
   }
 
 #item-template {display:none;}
+
+#node-page {
+   background-color: #fff;
+}
+.timeline {
+font-size: .8em;
+color: #999;
+}
+.breadcrumbs {
+    border-bottom: #000 solid 1px;
+    font-size: .8em;
+}
+.breadcrumbs a {
+color: #000;
+text-decoration: none;
+font-weight: bold;
+}
+
+#search {
+position: fixed;
+top: 0px;
+right: 0px;
+}
+#search input {
+border: none;
+background-color: #666;
+color: #fff;
+}
+
+.edit {
+ display:none;
+}
+.target {
+color: #b00;
+}
+span.target {
+position: absolute;
+top: 0px;
+right: 100px;
+}
+
+#due {
+position: fixed;
+right: 0px;
+bottom: 0px;
+}
+#due-today {
+background-color: orange;
+}
+#overdue {
+background-color: #f00;
+}
+#upcoming {
+background-color: green;
+}
+#due ul {
+padding-left: 0px;
+margin-left: 2px;
+}
+
+#due li {
+border-top: #000 solid 1px;
+}
+
+#due a {
+color: #fff;
+text-decoration: none;
+font-weight: bold;
+}
+
+#due li:hover a {
+color: #000;
+background-color: #fff;
+}
+
+#due li:hover {
+color: #000;
+background-color: #fff;
+}
+

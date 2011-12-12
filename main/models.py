@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from treebeard.mp_tree import MP_Node
 from django.contrib.auth.models import User
+from markdown import markdown
 
 class Node(MP_Node):
     label = models.CharField(max_length=256,default="")
@@ -10,6 +11,7 @@ class Node(MP_Node):
     details = models.TextField(blank=True,default="")
     added = models.DateTimeField(auto_now_add=True,editable=False)
     modified = models.DateTimeField(auto_now=True,editable=False)
+    target = models.DateField(null=True,blank=True)
 
     def save(self,*args,**kwargs):
         slug = slugify(self.label)[:255]
@@ -32,9 +34,25 @@ class Node(MP_Node):
         return dict(label=self.label,
                     id=self.id,
                     details=self.details,
+                    details_rendered=markdown(self.details),
                     children_count=self.get_children_count(),
                     parent_id=parent_id,
+                    target=str(self.target or ""),
                     )
+
+    def update_children_order(self,children_ids):
+        """children_ids is a list of Node ids for the children
+        in the order that they should be set to.
+
+        use with caution. if the ids in node_ids don't match up
+        right it will break or do strange things.
+        """
+        for node_id in children_ids:
+            n = Node.objects.get(id=node_id)
+            p = n.get_parent()
+            n.move(p,pos="last-child")
+        return 
+
 
 def user_top_level(user):
     return Node.get_root_nodes().filter(user=user)

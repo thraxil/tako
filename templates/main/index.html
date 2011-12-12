@@ -1,19 +1,102 @@
 {% extends "base.html" %}
 {% load markup %}
 
+{% block title %}lists in lists in lists...{% endblock %}
+
 {% block js %}
     <script src="/site_media/js/json2.js"></script>
     <script src="/site_media/js/jquery-1.5.js"></script>
     <script src="/site_media/js/underscore-1.1.6.js"></script>
     <script src="/site_media/js/backbone.js"></script>
+    <script src="/site_media/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <link rel="stylesheet" href="/site_media/css/jquery-ui-1.8.16.custom.css" type="text/css" media="screen"/>
     <script src="/site_media/js/tako.js"></script>
 {% endblock %}
 
 {% block content %}
 
+<div id="due">
+
+  {% if due %}
+  <div id="due-today">
+    <ul><b>DUE TODAY:</b>
+      {% for node in due %}
+      <li>{% for ancestor in node.get_ancestors %}<a href="/{{ancestor.id}}/">{{ancestor.label}}</a> &#187; {% endfor %}<a href="/{{node.id}}/">{{node.label}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if overdue %}
+  <div id="overdue">
+    <ul><b>OVERDUE:</b>
+      {% for node in overdue %}
+      <li>{% for ancestor in node.get_ancestors %}<a href="/{{ancestor.id}}/">{{ancestor.label}}</a> &#187; {% endfor %}<a href="/{{node.id}}/">{{node.label}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if upcoming %}
+  <div id="upcoming">
+    <ul><b>UPCOMING:</b>
+      {% for node in upcoming %}
+      <li><b>{{node.target}}</b> {% for ancestor in node.get_ancestors %}<a href="/{{ancestor.id}}/">{{ancestor.label}}</a> &#187; {% endfor %}<a href="/{{node.id}}/">{{node.label}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+
 <div id="takoapp">
 
       <div class="content">
+
+<p class="breadcrumbs">
+<a href="/">TAKO</a> &#187; 
+{% if node %}
+{% if not node.is_root %}
+{% for ancestor in node.get_ancestors %}<a href="/{{ancestor.id}}/">{{ancestor.label}}</a> &#187; {% endfor %}
+{% endif %}
+{% endif %}
+</p>
+
+{% if node %}
+<div id="node-page">
+<h2>{{node.label}}</h2>
+<p class="timeline">added: <b>{{node.added}}</b>
+modified: <b>{{node.modified}}</b></p>
+{% if node.target %}
+<p class="target">Target: <b>{{node.target}}</b></p>
+{% endif %}
+{% if node.details %}
+{{node.details|markdown}}
+{% endif %}
+<p><a href="" onclick="nodeEdit();return false">edit</a></p>
+</div>
+<div class="edit">
+<form action="edit/" method="post">
+<b>Label</b><br />
+<input type="text" value="{{node.label}}" name="label" size="70" /><br />
+<b>Target Date</b><br />
+<input type="text" value="{{node.target|date:'Y-m-d'}}" id="target" name="target" size="10"
+       /><br />
+<b>Details</b><br />
+<textarea name="details" rows="10"
+	  cols="70">{{node.details}}</textarea><br />
+<input type="submit" value="save" />
+</form>
+</div>
+
+<script>
+window.rootNodeId = {{node.id}};
+$(function() {
+  $( "#target" ).datepicker({"dateFormat" : "yy-mm-dd"});
+});
+</script>
+
+{% endif %}
+
 
         <div id="create-node">
           <input id="new-node" placeholder="Add item" type="text" />
@@ -32,14 +115,20 @@
       <div class="node " id="<%= htmlId %>">
 
         <div class="display">
-          <span class="node-children-expander"><%= children_count ? '+' : '-' %></span>
+          <span class="node-children-expander"><%= children_count ? '+' : '*' %></span>
           <div class="node-label"></div>
+	  <%= target ? '<span class="target">' + target + '</span>' : '' %>
+	  <%= id ? '<span class="go">[<a href="/' + id + '/">g</a>]</span>' : '' %>
 	  <span class="add-child">[+]</span>
           <span class="node-destroy"></span>
+	  <div class="<%= details_rendered ? 'details' : '' %>"><%= details_rendered %></div>
         </div>
 
         <div class="edit">
           <input class="node-input" type="text" value="" />
+	  <textarea name="details" class="node-details-input">
+	  </textarea>
+	  <input type="submit" value="save" class="node-save" />
         </div>
 
         <div class="create-child">

@@ -1,5 +1,28 @@
 $(function(){
   window.idMap = { };
+  window.allNodes = { };
+
+  var saveOrder = function(e) {
+    console.log("saveOrder");
+    var id = $(e.target).parent().parent().attr('id');
+    var cid = id.split("-")[1];
+    var node = window.allNodes[cid];
+    var url = node.saveOrderURL() + "?";
+    console.log(cid);
+    var worktodo = 0;
+    $(e.target).children("li").each(function(index,element) {
+       worktodo = 1;
+       var n = $(element).children(".node");
+       var id = window.allNodes[n.attr('id').split("-")[1]].get("id");
+       url += "node_" + index + "=" + id + ";";
+    });
+    if (worktodo == 1) {
+      var req = new XMLHttpRequest();
+      req.open("POST",url,true);
+      req.send(null);
+    }
+  };
+
 
   window.Node = Backbone.Model.extend({
     defaults: function() {
@@ -26,6 +49,7 @@ $(function(){
      this.children = new ChildNodeList;
      this.children.url = "/api/" + this.get('id') + "/";
      this.htmlId = "node-" + this.cid;
+     window.allNodes[this.cid] = this;
      this.showing_children = false;
      window.idMap[this.get('id')] = this.htmlId;
    },
@@ -36,8 +60,8 @@ $(function(){
      return j;
    },
 
-   getParent: function () {
-
+   saveOrderURL: function () {
+     return "/api/" + this.get('id') + "/reorder/";
    },
 
    toggleChildren: function() {
@@ -54,7 +78,7 @@ $(function(){
 
   window.NodeList = Backbone.Collection.extend({
     model: Node,
-    url: "/api/"
+    url: window.rootNodeId ? "/api/" + window.rootNodeId : "/api/"
   });
   window.Nodes = new NodeList;
 
@@ -63,23 +87,29 @@ $(function(){
     template: _.template($('#item-template').html()),
     events: {
       "dblclick div.node-label"             : "edit",
+      "click div.node-label"               : "closeAddChild",
       "click span.node-destroy"             : "clear",
       "click span.add-child"             : "createChildForm",
       "click span.node-children-expander"   : "toggleChildren",
       "keypress .node-input"                : "updateOnEnter",
-      "keypress .add-child-input"                : "addChildOnEnter"
+      "keypress .add-child-input"                : "addChildOnEnter",
+      "click .node-save"                    : "close"
     },
 
     initialize: function() {
       this.model.bind('change', this.render, this);
       this.model.bind('destroy', this.remove, this);
       this.model.children.bind('reset',this.addAll,this);
-      this.model.children.bind('change',this.render,this);
+      this.model.children.bind('add',this.render,this);
+      this.model.children.bind('remove',this.render,this);
     },
 
     render: function() {
       $(this.el).html(this.template(this.model.toFullJSON()));
       this.setLabel();
+      if (this.model.showing_children) {
+	this.model.children.fetch();
+      }
       return this;
     },
 
@@ -88,7 +118,9 @@ $(function(){
       if (!label) { label = "no label"; }
       this.$('.node-label').text(label);
       this.input = this.$('.node-input');
-      this.input.bind('blur', _.bind(this.close, this)).val(label);
+      this.detailsInput = this.$('.node-details-input');
+      this.input.val(label);
+      this.detailsInput.val(this.model.get('details'));
     },
 
     edit: function(e) {
@@ -98,7 +130,8 @@ $(function(){
     },
 
     close: function() {
-      this.model.save({label: this.input.val()});
+      this.model.save({label: this.input.val(),
+		       details: this.detailsInput.val()});
       $(this.el).removeClass("editing");
     },
 
@@ -106,19 +139,18 @@ $(function(){
       if (e.keyCode == 13) this.close();
     },
 
-    closeAddChild: function() {
+    closeAddChild: function(e) {
       $(this.el).removeClass("adding-child");
+      e.stopPropagation();
     },
 
     addChildOnEnter: function(e) {
       if (e.keyCode == 13) {
-	console.log("adding child");
-	console.log(e.target.value);
 	this.model.children.create({label: e.target.value,
 				    parent_id: this.model.get('id'),
 				    parent: this.model
 				   });
-	this.closeAddChild();
+	this.model.showing_children = true;
 	}
       e.stopPropagation();
     },
@@ -128,8 +160,6 @@ $(function(){
     },
 
     clear: function(e) {
-      console.log(this.model.get('id'));
-      console.log(this.model.url);
       this.model.destroy();
       e.stopPropagation();
     },
@@ -148,6 +178,11 @@ $(function(){
 
     addAll: function() {
       this.model.children.each(this.addOne);
+
+
+      this.$(".children-node-list").sortable({ containment: 'parent'
+					       ,stop: saveOrder
+					     });
     },
 
     toggleChildren: function(e) {
@@ -159,6 +194,7 @@ $(function(){
       this.model.toggleChildren();
       e.stopPropagation();
     }
+
   });
 
   window.AppView = Backbone.View.extend({
@@ -200,3 +236,8 @@ $(function(){
 
   window.App = new AppView;
 });
+
+var nodeEdit = function () {
+  $(".edit").show();
+};
+
