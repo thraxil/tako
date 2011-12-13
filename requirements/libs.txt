@@ -8,3 +8,4 @@ requirements/src/uuid-1.30.tar.gz
 requirements/src/psycopg2-2.4-no-mx.tar.gz
 requirements/src/lettuce-0.1.9.tar.gz
 requirements/src/twill-0.9.tar.gz
+requirements/src/versiontools-1.8.2.tar.gz

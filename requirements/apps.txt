@@ -3,4 +3,5 @@ requirements/src/djangowind-0.10.0.tar.gz
 requirements/src/django-treebeard-1.61.tar.gz
 requirements/src/South-0.7.3.tar.gz
 requirements/src/django-annoying-0.7.6.tar.gz
-
+requirements/src/django-appconf-0.4.1.tar.gz
+requirements/src/django_compressor-1.1.1.tar.gz

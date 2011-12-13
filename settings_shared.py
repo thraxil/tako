@@ -65,6 +65,7 @@ INSTALLED_APPS = (
     'south',
     'tako.main',
     'lettuce.django',
+    "compressor",
 )
 
 THUMBNAIL_SUBDIR = "thumbs"
@@ -87,3 +88,5 @@ SOUTH_AUTO_FREEZE_APP = True
 LETTUCE_APPS = (
     'tako.main',
     )
+COMPRESS_URL = "/site_media/"
+COMPRESS_ROOT = "media/"
