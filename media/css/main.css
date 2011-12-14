@@ -527,7 +527,7 @@ background-color: #fff;
 .empty {
 display: none;
 }
-li:hover .empty {
+li:hover>.node>.display>.empty {
 display: inline;
 }
 

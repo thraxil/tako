@@ -146,12 +146,10 @@ $(function(){
     },
 
     closeEditTarget: function(dateText) {
-      console.log(dateText);
       $(this.el).removeClass("editing-target");
       this.model.save({
 			target: dateText
 		      });
-      console.log(this);
     },
 
     close: function() {
