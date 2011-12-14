@@ -524,3 +524,16 @@ color: #000;
 background-color: #fff;
 }
 
+.empty {
+display: none;
+}
+li:hover .empty {
+display: inline;
+}
+
+  #node-list .edit-target {
+    display: none;
+  }
+  #node-list .editing-target>.node>.edit-target {
+      display: block;
+    }

@@ -122,7 +122,7 @@ $(function() {
         <div class="display">
           <span class="node-children-expander"><%= children_count ? '+' : '*' %></span>
           <div class="node-label"></div>
-	  <%= target ? '<span class="target">' + target + '</span>' : '' %>
+	  <%= target ? '<span class="target">' + target + '</span>' : '<span class="target empty">set target date</span>' %>
 	  <%= id ? '<span class="go">[<a href="/' + id + '/">g</a>]</span>' : '' %>
 	  <span class="add-child">[+]</span>
           <span class="node-destroy"></span>
@@ -135,6 +135,10 @@ $(function() {
 	  </textarea>
 	  <input type="submit" value="save" class="node-save" />
         </div>
+
+	<div class="edit-target">
+	  <input class="target-input" type="text" value="<%= target %>"/>
+	</div>
 
         <div class="create-child">
           <input placeholder="Add child" type="text" class="add-child-input" /> 

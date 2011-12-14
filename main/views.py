@@ -75,6 +75,8 @@ def api(request,node_id):
             d = loads(request.read())
             n.label = d['label']
             n.details = d['details']
+            if d.has_key('target'):
+                n.target = d['target']
             n.save()
 
     if request.method == "DELETE":

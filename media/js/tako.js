@@ -93,7 +93,8 @@ $(function(){
       "click span.node-children-expander"   : "toggleChildren",
       "keypress .node-input"                : "updateOnEnter",
       "keypress .add-child-input"                : "addChildOnEnter",
-      "click .node-save"                    : "close"
+      "click .node-save"                    : "close",
+      "dblclick span.target"             : "editTarget"
     },
 
     initialize: function() {
@@ -118,6 +119,7 @@ $(function(){
       if (!label) { label = "no label"; }
       this.$('.node-label').text(label);
       this.input = this.$('.node-input');
+      this.targetInput = this.$('.target-input');
       this.detailsInput = this.$('.node-details-input');
       this.input.val(label);
       this.detailsInput.val(this.model.get('details'));
@@ -127,6 +129,29 @@ $(function(){
       $(this.el).addClass("editing");
       this.input.focus();
       e.stopPropagation();
+    },
+
+    editTarget: function(e) {
+      $(this.el).addClass("editing-target");
+      var self = this;
+      this.$(".target-input").datepicker({"dateFormat" : "yy-mm-dd",
+	"onClose": function(dateText, inst) {
+	  self.closeEditTarget(dateText);
+	}
+      });
+
+      this.targetInput.focus();
+      e.stopPropagation();
+
+    },
+
+    closeEditTarget: function(dateText) {
+      console.log(dateText);
+      $(this.el).removeClass("editing-target");
+      this.model.save({
+			target: dateText
+		      });
+      console.log(this);
     },
 
     close: function() {
