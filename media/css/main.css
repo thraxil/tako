@@ -530,11 +530,13 @@ display:none;
 .display:hover>.empty {
 display:inline;
 }
-
-
   #node-list .edit-target {
     display: none;
+    position: absolute;
+    top: 0px;
+    right: 100px;
   }
   #node-list .editing-target>.node>.edit-target {
       display: block;
     }
+
