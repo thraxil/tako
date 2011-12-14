@@ -525,11 +525,12 @@ background-color: #fff;
 }
 
 .empty {
-display: none;
+display:none;
 }
-li:hover>.node>.display>.empty {
-display: inline;
+.display:hover>.empty {
+display:inline;
 }
+
 
   #node-list .edit-target {
     display: none;

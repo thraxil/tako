@@ -147,9 +147,11 @@ $(function(){
 
     closeEditTarget: function(dateText) {
       $(this.el).removeClass("editing-target");
-      this.model.save({
-			target: dateText
-		      });
+      if (dateText) {
+	this.model.save({
+			  target: dateText
+			});
+      }
     },
 
     close: function() {
