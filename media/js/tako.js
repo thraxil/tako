@@ -224,7 +224,6 @@ $(function(){
     toggleChildren: function(e) {
       if (this.model.showing_children) {
 	$(this.el).find(".children-node-list").empty();
-	this.model.children.unbind();
       }
       $(this.el).toggleClass("showing-children");
       this.model.toggleChildren();
