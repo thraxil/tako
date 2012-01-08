@@ -117,7 +117,6 @@ $(function(){
 	this.toggleChildren();
       } else {
 	$(this.el).find(".children-node-list").empty();
-	this.model.children.reset();
 	this.model.children.fetch();
       }
       return this;
