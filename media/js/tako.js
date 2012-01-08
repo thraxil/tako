@@ -32,10 +32,10 @@ $(function(){
 
    url: function() {
       if (!this.get('id')) {
-	if (this.get('parent_id') == 0) return "/api/";
+	if (this.get('parent_id') == 0) return getRootURL();
         return "/api/" + this.get("parent_id") + "/";
      }
-     if (this.get('id') == 0) return "/api/";
+     if (this.get('id') == 0) return getRootURL();
      return "/api/" + this.get('id') + "/";
    },
 
@@ -55,6 +55,12 @@ $(function(){
    toFullJSON: function() {
      var j = this.toJSON();
      j['htmlId'] = this.htmlId;
+     if (!this.get('id')) {
+       j['id'] = 0;
+       j['details'] = '';
+       j['details_rendered'] = '';
+       j['target'] = "";
+     }
      return j;
    },
 
@@ -276,3 +282,6 @@ var nodeEdit = function () {
   $(".edit").show();
 };
 
+var getRootURL = function() {
+  return window.rootNodeId ? "/api/" + window.rootNodeId + "/" : "/api/";
+};
