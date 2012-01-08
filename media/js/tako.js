@@ -3,12 +3,10 @@ $(function(){
   window.allNodes = { };
 
   var saveOrder = function(e) {
-    console.log("saveOrder");
     var id = $(e.target).parent().parent().attr('id');
     var cid = id.split("-")[1];
     var node = window.allNodes[cid];
     var url = node.saveOrderURL() + "?";
-    console.log(cid);
     var worktodo = 0;
     $(e.target).children("li").each(function(index,element) {
        worktodo = 1;
@@ -101,8 +99,8 @@ $(function(){
       this.model.bind('change', this.render, this);
       this.model.bind('destroy', this.remove, this);
       this.model.children.bind('reset',this.addAll,this);
-      this.model.children.bind('add',this.render,this);
-      this.model.children.bind('remove',this.render,this);
+      this.model.children.bind('add',this.renderChildren,this);
+//      this.model.children.bind('remove',this.renderChildren,this);
     },
 
     render: function() {
@@ -114,11 +112,24 @@ $(function(){
       return this;
     },
 
+    renderChildren: function() {
+      if (!this.model.showing_children) {
+	this.toggleChildren();
+      } else {
+	$(this.el).find(".children-node-list").empty();
+	this.model.children.reset();
+	this.model.children.fetch();
+      }
+      return this;
+    },
+
+
     setLabel: function() {
       var label = this.model.get('label');
       if (!label) { label = "no label"; }
       this.$('.node-label').text(label);
       this.input = this.$('.node-input');
+      this.addChildInput = this.$('.add-child-input');
       this.targetInput = this.$('.target-input');
       this.detailsInput = this.$('.node-details-input');
       this.input.val(label);
@@ -175,7 +186,8 @@ $(function(){
 				    parent_id: this.model.get('id'),
 				    parent: this.model
 				   });
-	this.model.showing_children = true;
+	this.addChildInput.val("");
+	this.addChildInput.focus();
 	}
       e.stopPropagation();
     },
@@ -212,12 +224,12 @@ $(function(){
 
     toggleChildren: function(e) {
       if (this.model.showing_children) {
-	$(this.el).children(".children-node-list").empty();
+	$(this.el).find(".children-node-list").empty();
 	this.model.children.unbind();
       }
       $(this.el).toggleClass("showing-children");
       this.model.toggleChildren();
-      e.stopPropagation();
+      if(e) { e.stopPropagation(); }
     }
 
   });
