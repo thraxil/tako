@@ -75,7 +75,7 @@ def api(request,node_id):
             d = loads(request.read())
             n.label = d['label']
             n.details = d['details']
-            if d.has_key('target'):
+            if d.has_key('target') and d['target'] != "":
                 n.target = d['target']
             n.save()
 
