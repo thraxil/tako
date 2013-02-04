@@ -47,13 +47,14 @@ MEDIA_ROOT = "/var/www/tako/uploads/"
 MEDIA_URL = '/uploads/'
 ADMIN_MEDIA_PREFIX = '/media/'
 SECRET_KEY = ')ng#)ef_u@_^zvvu@dxm7ql-yb^_!a6%v3v^j3b(mp+)l+5%@h'
+
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.auth',
+    'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
     )
@@ -74,7 +75,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     # Put application templates before these fallback ones:
     "/var/www/tako/templates/",
-    os.path.join(os.path.dirname(__file__),"templates"),
+    os.path.join(os.path.dirname(__file__), "templates"),
 )
 
 INSTALLED_APPS = (
