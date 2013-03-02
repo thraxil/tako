@@ -116,3 +116,6 @@ LETTUCE_APPS = (
     )
 COMPRESS_URL = "/site_media/"
 COMPRESS_ROOT = "media/"
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_COOKIE_HTTPONLY = True
