@@ -95,6 +95,7 @@ INSTALLED_APPS = (
     "compressor",
     'django_nose',
     'django_statsd',
+    'gunicorn',
 )
 
 THUMBNAIL_SUBDIR = "thumbs"
