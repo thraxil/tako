@@ -5,7 +5,7 @@ import sys
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = ( )
+ADMINS = ()
 
 MANAGERS = ADMINS
 
@@ -17,7 +17,7 @@ DATABASES = {
         'PORT': 5432,
         'USER': '',
         'PASSWORD': '',
-        }
+    }
 }
 
 if 'test' in sys.argv:
@@ -57,7 +57,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
-    )
+)
 
 MIDDLEWARE_CLASSES = (
     'django_statsd.middleware.GraphiteRequestTimingMiddleware',
@@ -72,11 +72,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'tako.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    # Put application templates before these fallback ones:
-    "/var/www/tako/templates/",
+    "/var/www/tako/tako/templates/",
     os.path.join(os.path.dirname(__file__), "templates"),
 )
 
@@ -91,7 +87,6 @@ INSTALLED_APPS = (
     'treebeard',
     'south',
     'tako.main',
-    'lettuce.django',
     "compressor",
     'django_nose',
     'django_statsd',
@@ -105,19 +100,20 @@ SERVER_EMAIL = "tako@thraxil.org"
 
 # WIND settings
 
-AUTHENTICATION_BACKENDS = ('djangowind.auth.WindAuthBackend','django.contrib.auth.backends.ModelBackend',)
+AUTHENTICATION_BACKENDS = (
+    'djangowind.auth.WindAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',)
 WIND_BASE = "https://wind.columbia.edu/"
 WIND_SERVICE = "cnmtl_full_np"
 WIND_PROFILE_HANDLERS = ['djangowind.auth.CDAPProfileHandler']
-WIND_AFFIL_HANDLERS = ['djangowind.auth.AffilGroupMapper','djangowind.auth.StaffMapper','djangowind.auth.SuperuserMapper']
+WIND_AFFIL_HANDLERS = ['djangowind.auth.AffilGroupMapper',
+                       'djangowind.auth.StaffMapper',
+                       'djangowind.auth.SuperuserMapper']
 WIND_STAFF_MAPPER_GROUPS = ['tlc.cunix.local:columbia.edu']
 WIND_SUPERUSER_MAPPER_GROUPS = ['anp8']
 
 SOUTH_AUTO_FREEZE_APP = True
 
-LETTUCE_APPS = (
-    'tako.main',
-    )
 COMPRESS_URL = "/site_media/"
 COMPRESS_ROOT = "media/"
 
@@ -129,3 +125,10 @@ STATSD_PREFIX = 'tako'
 STATSD_HOST = '127.0.0.1'
 STATSD_PORT = 8125
 STATSD_PATCHES = ['django_statsd.patches.db', ]
+
+ALLOWED_HOSTS = ['tako.thraxil.org',]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+}
