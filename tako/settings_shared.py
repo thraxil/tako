@@ -57,6 +57,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
+    'django.core.context_processors.static',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -84,13 +85,24 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django.contrib.markup',
     'django.contrib.admin',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     'treebeard',
     'south',
     'tako.main',
-    "compressor",
     'django_nose',
     'django_statsd',
     'gunicorn',
+)
+
+STATIC_URL = "/media/"
+STATICFILES_DIRS = (
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "../media/")),
+)
+STATIC_ROOT = ""
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
 THUMBNAIL_SUBDIR = "thumbs"
@@ -114,7 +126,7 @@ WIND_SUPERUSER_MAPPER_GROUPS = ['anp8']
 
 SOUTH_AUTO_FREEZE_APP = True
 
-COMPRESS_URL = "/site_media/"
+COMPRESS_URL = "/media/"
 COMPRESS_ROOT = "media/"
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
@@ -126,7 +138,7 @@ STATSD_HOST = '127.0.0.1'
 STATSD_PORT = 8125
 STATSD_PATCHES = ['django_statsd.patches.db', ]
 
-ALLOWED_HOSTS = ['tako.thraxil.org',]
+ALLOWED_HOSTS = ['tako.thraxil.org', ]
 
 LOGGING = {
     'version': 1,

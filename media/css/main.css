@@ -7,7 +7,7 @@ body
 	background-color: #fff;
 	font: normal 0.88em/140% arial, helvetica, verdana, sans-serif;
 	color: #000;
-    background: url(/site_media/img/octo.jpg) no-repeat 0 0;	
+    background: url(/media/img/octo.jpg) no-repeat 0 0;	
 background-attachment:fixed;
 }
 
@@ -373,7 +373,7 @@ ol, ul {
     cursor: pointer;
     width: 20px;
     height: 20px;
-    background: url(/site_media/img/destroy.png) no-repeat 0 0;
+    background: url(/media/img/destroy.png) no-repeat 0 0;
   }
 
   #node-list .add-child {

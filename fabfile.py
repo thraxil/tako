@@ -1,6 +1,8 @@
 from fabric.api import run, sudo, local, cd, env
 
 env.hosts = ['oolong.thraxil.org', 'maru.thraxil.org']
+nginx_hosts = ['lilbub.thraxil.org', 'lolrus.thraxil.org']
+env.forward_agent = True
 env.user = 'anders'
 
 def restart_gunicorn():
@@ -15,4 +17,8 @@ def deploy():
         run("git pull origin master")
         run("./bootstrap.py")
         run("./manage.py migrate")
+        run("./manage.py collectstatic --noinput --settings=tako.settings_production")
+        for n in nginx_hosts:
+            run(("rsync -avp --delete media/ "
+                 "%s:/var/www/tako/tako/media/") % n)
     restart_gunicorn()

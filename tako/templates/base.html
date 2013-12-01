@@ -1,14 +1,11 @@
-{% load compress %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title>tako: {% block title %}{% endblock %}</title>
-{% compress css %}
-	<link rel="stylesheet" href="/site_media/css/main.css" media="screen" />
-	<link rel="stylesheet" href="/site_media/css/print.css" media="print" />
-{% endcompress %}
-	<link rel="shortcut icon" href="/site_media/img/favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="{{STATIC_URL}}css/main.css" media="screen" />
+	<link rel="stylesheet" href="{{STATIC_URL}}css/print.css" media="print" />
+	<link rel="shortcut icon" href="{{STATIC_URL}}img/favicon.ico" type="image/x-icon" />
 	{% block css %}{% endblock %}
 	{% block js %}{% endblock %}
 	{% block feeds %}{% endblock %}

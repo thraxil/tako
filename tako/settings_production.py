@@ -10,6 +10,8 @@ MEDIA_ROOT = '/var/www/tako/uploads/'
 STATICMEDIA_MOUNTS = (
     ('/sitemedia', '/var/www/tako/tako/sitemedia'),)
 
+STATICFILES_DIRS = ()
+STATIC_ROOT = "/var/www/tako/tako/media/"
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG

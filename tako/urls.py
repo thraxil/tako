@@ -1,11 +1,8 @@
 from django.conf.urls import patterns, include
 from django.contrib import admin
 from django.conf import settings
-import os.path
 admin.autodiscover()
 
-
-site_media_root = os.path.join(os.path.dirname(__file__), "../media")
 
 redirect_after_logout = getattr(settings, 'LOGOUT_REDIRECT_URL', None)
 auth_urls = (r'^accounts/', include('django.contrib.auth.urls'))
@@ -29,7 +26,4 @@ urlpatterns = patterns(
     (r'^(?P<node_id>\d*)/?$', 'tako.main.views.node'),
     (r'^(?P<node_id>\d*)/?add/$', 'tako.main.views.add'),
     (r'^admin/', include(admin.site.urls)),
-    (r'^site_media/(?P<path>.*)$',
-     'django.views.static.serve',
-     {'document_root': site_media_root}),
 )
