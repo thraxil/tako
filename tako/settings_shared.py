@@ -110,20 +110,6 @@ EMAIL_SUBJECT_PREFIX = "[tako] "
 EMAIL_HOST = 'localhost'
 SERVER_EMAIL = "tako@thraxil.org"
 
-# WIND settings
-
-AUTHENTICATION_BACKENDS = (
-    'djangowind.auth.WindAuthBackend',
-    'django.contrib.auth.backends.ModelBackend',)
-WIND_BASE = "https://wind.columbia.edu/"
-WIND_SERVICE = "cnmtl_full_np"
-WIND_PROFILE_HANDLERS = ['djangowind.auth.CDAPProfileHandler']
-WIND_AFFIL_HANDLERS = ['djangowind.auth.AffilGroupMapper',
-                       'djangowind.auth.StaffMapper',
-                       'djangowind.auth.SuperuserMapper']
-WIND_STAFF_MAPPER_GROUPS = ['tlc.cunix.local:columbia.edu']
-WIND_SUPERUSER_MAPPER_GROUPS = ['anp8']
-
 SOUTH_AUTO_FREEZE_APP = True
 
 COMPRESS_URL = "/media/"
