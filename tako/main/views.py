@@ -76,28 +76,31 @@ def api(request, node_id):
             p.add_child(user=request.user, label=d['label'])
         else:
             n = Node.add_root(user=request.user, label=d['label'])
+    if request.method == "PUT" and node_id:
+        n = get_object_or_404(Node, id=node_id)
+        if n.user.id != request.user.id:
+            return HttpResponse("you are not the owner of this node")
+        d = loads(request.read())
+        n.label = d['label']
+        n.details = d['details']
+        if 'target' in d and d['target'] != "":
+            n.target = d['target']
+        n.save()
+    if request.method == "DELETE" and node_id:
+        return api_delete_node(request, node_id)
 
-    if request.method == "PUT":
-        if node_id:
-            n = get_object_or_404(Node, id=node_id)
-            if n.user.id != request.user.id:
-                return HttpResponse("you are not the owner of this node")
-            d = loads(request.read())
-            n.label = d['label']
-            n.details = d['details']
-            if 'target' in d and d['target'] != "":
-                n.target = d['target']
-            n.save()
+    return api_get(request, node_id)
 
-    if request.method == "DELETE":
-        if node_id:
-            n = get_object_or_404(Node, id=node_id)
-            if n.user.id != request.user.id:
-                return HttpResponse("you are not the owner of this node")
 
-            n.delete()
-            return HttpResponse(dumps({}), mimetype="application/json")
+def api_delete_node(request, node_id):
+    n = get_object_or_404(Node, id=node_id)
+    if n.user.id != request.user.id:
+        return HttpResponse("you are not the owner of this node")
+    n.delete()
+    return HttpResponse(dumps({}), mimetype="application/json")
 
+
+def api_get(request, node_id):
     if node_id:
         n = get_object_or_404(Node, id=node_id)
         if n.user.id != request.user.id:
