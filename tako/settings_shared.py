@@ -83,7 +83,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'django.contrib.markup',
     'django.contrib.admin',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -93,6 +92,7 @@ INSTALLED_APPS = [
     'django_nose',
     'django_statsd',
     'gunicorn',
+    'django_markwhat',
 ]
 
 STATIC_URL = "/media/"
@@ -122,7 +122,6 @@ STATSD_CLIENT = 'statsd.client'
 STATSD_PREFIX = 'tako'
 STATSD_HOST = '127.0.0.1'
 STATSD_PORT = 8125
-STATSD_PATCHES = ['django_statsd.patches.db', ]
 
 ALLOWED_HOSTS = ['tako.thraxil.org', ]
 
