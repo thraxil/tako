@@ -9,15 +9,15 @@ def restart_gunicorn():
     sudo("restart tako")
 
 def prepare_deploy():
-    local("./manage.py test")
+    local("manage test")
+    local("manage flake8")
 
 def deploy():
     code_dir = "/var/www/tako/tako"
     with cd(code_dir):
         run("git pull origin master")
-        run("./bootstrap.py")
-        run("./manage.py migrate")
-        run("./manage.py collectstatic --noinput --settings=tako.settings_production")
+        run("manage migrate")
+        run("manage collectstatic")
         for n in nginx_hosts:
             run(("rsync -avp --delete media/ "
                  "%s:/var/www/tako/tako/media/") % n)
