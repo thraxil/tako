@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from annoying.decorators import render_to
-from simplejson import loads, dumps
+from json import loads, dumps
 from datetime import datetime
 
 
