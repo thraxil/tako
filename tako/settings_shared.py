@@ -30,7 +30,6 @@ if 'test' in sys.argv:
             'USER': '',
             'PASSWORD': '', }}
 
-SOUTH_TESTS_MIGRATE = False
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 NOSE_ARGS = [
@@ -87,7 +86,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'treebeard',
-    'south',
     'tako.main',
     'django_nose',
     'django_statsd',
@@ -109,8 +107,6 @@ THUMBNAIL_SUBDIR = "thumbs"
 EMAIL_SUBJECT_PREFIX = "[tako] "
 EMAIL_HOST = 'localhost'
 SERVER_EMAIL = "tako@thraxil.org"
-
-SOUTH_AUTO_FREEZE_APP = True
 
 COMPRESS_URL = "/media/"
 COMPRESS_ROOT = "media/"
