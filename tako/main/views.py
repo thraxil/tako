@@ -97,7 +97,7 @@ def api_delete_node(request, node_id):
     if n.user.id != request.user.id:
         return HttpResponse("you are not the owner of this node")
     n.delete()
-    return HttpResponse(dumps({}), mimetype="application/json")
+    return HttpResponse(dumps({}), content_type="application/json")
 
 
 def api_get(request, node_id):
@@ -107,12 +107,12 @@ def api_get(request, node_id):
             return HttpResponse("you are not the owner of this node")
 
         return HttpResponse(dumps([n.as_dict() for n in n.get_children()]),
-                            mimetype="application/json")
+                            content_type="application/json")
     else:
         nodes = user_top_level(request.user)
         return HttpResponse(
             dumps([n.as_dict() for n in nodes]),
-            mimetype="application/json")
+            content_type="application/json")
 
 
 @login_required
