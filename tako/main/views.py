@@ -106,7 +106,7 @@ def api_get(request, node_id):
         if n.user.id != request.user.id:
             return HttpResponse("you are not the owner of this node")
 
-        return HttpResponse(dumps([n.as_dict() for n in n.get_children()]),
+        return HttpResponse(dumps([c.as_dict() for c in n.get_children()]),
                             content_type="application/json")
     else:
         nodes = user_top_level(request.user)
