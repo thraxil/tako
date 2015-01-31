@@ -1,8 +1,14 @@
 language: python
 python:
   - "2.7"
+before_install:
+  - openssl aes-256-cbc -K $encrypted_2ffab6fc01b5_key -iv $encrypted_2ffab6fc01b5_iv -in tako_rsa.enc -out tako_rsa -d
 install:
   - ./bootstrap.py
 script:
   - ./ve/bin/flake8 tako
   - ./manage.py test
+after_success:
+  - chmod 600 tako_rsa
+  - ssh-add tako_rsa
+  - make travis_deploy

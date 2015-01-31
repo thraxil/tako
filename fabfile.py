@@ -6,7 +6,7 @@ env.forward_agent = True
 env.user = 'anders'
 
 def restart_gunicorn():
-    sudo("restart tako")
+    sudo("restart tako", shell=False)
 
 def prepare_deploy():
     local("make test")
