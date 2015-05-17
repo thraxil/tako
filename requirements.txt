@@ -1,7 +1,6 @@
 Django==1.7.7
 Markdown==2.5.2
 psycopg2==2.6
-twill==0.9
 versiontools==1.9.1
 coverage==4.0a1
 pep8==1.5.7
