@@ -91,7 +91,7 @@ STATIC_URL = "/media/"
 STATICFILES_DIRS = (
     os.path.abspath(os.path.join(os.path.dirname(__file__), "../media/")),
 )
-STATIC_ROOT = ""
+STATIC_ROOT = "/tmp/tako/static"
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
