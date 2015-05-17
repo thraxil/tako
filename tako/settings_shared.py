@@ -30,13 +30,7 @@ if 'test' in sys.argv:
             'USER': '',
             'PASSWORD': '', }}
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-NOSE_ARGS = [
-    '--with-coverage',
-    '--cover-package=tako',
-]
-
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 TIME_ZONE = 'America/New_York'
 LANGUAGE_CODE = 'en-us'
@@ -87,7 +81,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'treebeard',
     'tako.main',
-    'django_nose',
     'django_statsd',
     'gunicorn',
     'django_markwhat',
