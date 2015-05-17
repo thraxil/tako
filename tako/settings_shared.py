@@ -98,6 +98,7 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
+
 THUMBNAIL_SUBDIR = "thumbs"
 EMAIL_SUBJECT_PREFIX = "[tako] "
 EMAIL_HOST = 'localhost'
