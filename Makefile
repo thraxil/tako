@@ -48,6 +48,9 @@ rebase:
 collectstatic: ./ve/bin/python validate
 	$(MANAGE) collectstatic --noinput --settings=$(APP).settings_production
 
+compress: ./ve/bin/python validate
+	$(MANAGE) compress --settings=$(APP).settings_production
+
 # run this one the very first time you check
 # this out on a new machine to set up dev
 # database, etc. You probably *DON'T* want
