@@ -14,11 +14,11 @@ python-dateutil==2.4.2
 six==1.9.0
 
 django-treebeard==3.0
-django-annoying==0.8.2
+django-annoying==0.8.3
 django-appconf==1.0.1
 django_compressor==1.5
 django-statsd-mozilla==0.3.15
-raven==5.1.1
+raven==5.5.0
 django-markwhat==1.4
 django-storages-redux==1.2.3
 django-cacheds3storage==0.1.1
